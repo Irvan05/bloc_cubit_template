@@ -9,9 +9,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MyRouter {
-  final Counter myCounter = Counter(init: 0);
-  final ThemeBloc myTheme = ThemeBloc();
-  final UserCubit myUser = UserCubit();
+  Counter myCounter = Counter(init: 0);
+  ThemeBloc myTheme = ThemeBloc();
+  UserCubit myUser = UserCubit();
 
   Route onRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -23,9 +23,10 @@ class MyRouter {
       case BasicBuilderPage.routeName:
         return CupertinoPageRoute(builder: (context) => BasicBuilderPage());
       // GENERATED PAGES
-      // BAD PRACTICE KARENA BLOC PROVIDER AKAN DISPOSE BLOCNYA PAS HALAMAN DITUTUP,
-      // JADI PAS DIBUKA LAGI BLOCNYA GA DICREATE ULANG KARENA DI INIT DIATAS
+      // BLOC PROVIDER AKAN DISPOSE BLOCNYA PAS HALAMAN DITUTUP,
+      // JADI HARUS INIT BLOC SETIAP HALAMAN MAU DIPANGGIL
       case BasicBuilderGenerated.routeName:
+        initBuillderGeneratedBloc();
         return CupertinoPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
                   BlocProvider(create: (context) => myCounter),
@@ -42,6 +43,18 @@ class MyRouter {
       // DEFAULT SHOULD BE PAGE NOT FOUND
       default:
         return CupertinoPageRoute(builder: (context) => const HomePage());
+    }
+  }
+
+  void initBuillderGeneratedBloc() {
+    if (myCounter.isClosed) {
+      myCounter = Counter(init: 1);
+    }
+    if (myTheme.isClosed) {
+      myTheme = ThemeBloc();
+    }
+    if (myUser.isClosed) {
+      myUser = UserCubit();
     }
   }
 }
