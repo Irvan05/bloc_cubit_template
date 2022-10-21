@@ -68,7 +68,7 @@ class BasicBuilderGenerated extends StatelessWidget {
                       bloc: myCounter,
                       builder: (context, state) {
                         return Text(
-                          ' FROM LISTENER',
+                          '$state FROM LISTENER',
                           style: const TextStyle(fontSize: 30),
                         );
                       }),
@@ -87,7 +87,7 @@ class BasicBuilderGenerated extends StatelessWidget {
                     },
                     builder: (context, state) {
                       return Text(
-                        ' FROM BUILDER',
+                        '$state FROM BUILDER',
                         style: const TextStyle(fontSize: 30),
                       );
                     }),
@@ -99,7 +99,7 @@ class BasicBuilderGenerated extends StatelessWidget {
                     bloc: myCounter,
                     builder: (context, state) {
                       return Text(
-                        ' FROM CONSUMER',
+                        '$state FROM CONSUMER',
                         style: const TextStyle(fontSize: 30),
                       );
                     },
