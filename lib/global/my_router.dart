@@ -23,6 +23,8 @@ class MyRouter {
       case BasicBuilderPage.routeName:
         return CupertinoPageRoute(builder: (context) => BasicBuilderPage());
       // GENERATED PAGES
+      // BAD PRACTICE KARENA BLOC PROVIDER AKAN DISPOSE BLOCNYA PAS HALAMAN DITUTUP,
+      // JADI PAS DIBUKA LAGI BLOCNYA GA DICREATE ULANG KARENA DI INIT DIATAS
       case BasicBuilderGenerated.routeName:
         return CupertinoPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
